@@ -1,11 +1,11 @@
-## Stock Price Indicator
-
-Project Overview
+Stock Price Indicator
 ===============================
 
 This is a research about using Machine Learning technique to predict the stock price, the detail of the project is in the [report](https://github.com/henry32144/MLND-capstone/blob/master/report.pdf) file.
 
 The code is in the Capstone.ipynb.
+
+(This project is a part of Udacity Machine Learning Nanodegree)
 
 Requirement
 ===============================
