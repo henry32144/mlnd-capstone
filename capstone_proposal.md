@@ -3,7 +3,7 @@
 CHENG HAN WU
 January 7, 2018
 
-## Stock Pirce Indicator Proposal
+## Stock Price Indicator Proposal
 
 ### Domain Background
 
@@ -21,7 +21,7 @@ I decided to get data from [Yahoo finance](https://hk.finance.yahoo.com/), it pr
 
 The historical data fetch from Yahoo finance has seven columns, **Date,Open,High,Low,Close,Adjusted Close and Volume**, I would take them and use Adjusted Close instead of Close as input, the difference between Adjusted Close and Close described [here](https://budgeting.thenest.com/adjusted-closing-price-vs-closing-price-32457.html). 
 
-The data date range I choose is from 2000/01/04 to 2017/12/29, there are some null values because stock market is close in these days, and I would preprocess the data before training.  
+The data date range I choose is from 2003/01/01 to 2017/12/29, there are some null values because stock market is close in these days, and I would preprocess the data before training.  
 
 ### Solution Statement
 
@@ -35,19 +35,19 @@ I would choose the regression algorithm has the best performance from above, and
 
 ### Evaluation Metrics
 
-I supposed to use RMSE as the evaluation metrice, RMSE(root-mean-square error) is a popular evaluation metric used in regression problem. RMSE is the square root of the average of squared errors, the formula is:
+I supposed to use RMSE as the evaluation metric, RMSE(root-mean-square error) is a popular evaluation metric used in regression problem. RMSE is the square root of the average of squared errors, the formula is:
 
 <img src="http://latex.codecogs.com/gif.latex?\sqrt{\frac{\sum_{i=1}^{n}&space;(Predicted&space;-&space;Actual)^{2}}{N}}" title="\sqrt{\frac{\sum_{i=1}^{n} (Predicted - Actual)^{2}}{N}}" />
 
-And the lower RMSE value represent the predicted value has less error, which means the value predicted by the model is accuracy, so when we apply this evaluation metric to both our solution model and benchmark model, we choose the one have lower RMSE value and say that one is better. 
+And the lower RMSE value represent the predicted value has less error, which means the value predicted by the model is accuracy, so when we apply this evaluation metric to both our solution model and benchmark model, we choose the one has lower RMSE value and say that one is better. 
 
 ### Project Design
 
-In my opinion, this project can be seperated into three parts. Data, Model and User Interface.
+In my opinion, this project can be separated into three parts. Data, Model and User Interface.
 
 **Data part**
 
-The data fetch from Yahoo Finance has seven columns, **Date, Open, High, Low, Close, Adjusted Close and Volume**, as mentioned above, we choosed Adjust Close as our target value, so we would not use Close. We want to forecast it by input **Open , High, Low, Volume, Moving Average and Bollinger Bands**, there are some different time series in **Moving Average** like 5days, 20days ...etc, I supposed to use 5days and 10days because I think that there are too many factorsto affect the stock price, so the technical analysis is hard to have accuracy result in predicting the price in far future. And below are formulas of Moving Average and Bollinger Bands.
+The data fetch from Yahoo Finance has seven columns, **Date, Open, High, Low, Close, Adjusted Close and Volume**, as mentioned above, we choosed Adjust Close as our target value, so we would not use Close. We want to forecast it by input **Open, High, Low, Volume, Moving Average and Bollinger Bands**, there are some different time series in **Moving Average** like 5days, 20days ...etc., I supposed to use 5days and 10days because I think that there are too many factorsto affect the stock price, so the technical analysis is hard to have accuracy result in predicting the price in far future. And below are formulas of Moving Average and Bollinger Bands.
 
 <img src="http://latex.codecogs.com/gif.latex?\frac{\sum_{i&space;=&space;1}^{n}&space;pi}{n}" title="\frac{\sum_{i = 1}^{n} pi}{n}" />
 
@@ -63,7 +63,7 @@ There are some null values in the data, so we should preprocess them before usin
 
 In the project, we want to build a model that can forecast the Adjusted Close price in the chosen days after, like predict the Adjusted Close price 7 days later. And we first take these features to train, **Open, High, Low, Volume, 5MA, 10MA, Bollinger Bands in 5MA**, and by using the feature importance function, we can discover which feature is important and then modify our training feature. 
 
-Also the data need to be normalize before train, there are two different normalize types in these features. The price part, such as **Open, High, Low, 5MA, 10MA, Bollinger Bands**, these feature would be divided by the Adjusted Close price in the first day we choosed. The Volume value is usually about tens of billion, so we could divide them by one hundred billion, so the Volume value after normalize would be in range of 0 to 1.
+Also the data need to be normalize before train, there are two different normalize types in these features. The price part, such as **Open, High, Low, 5MA, 10MA, Bollinger Bands**, these feature would be divided by the Adjusted Close price in the first day we choose. The Volume value is usually about tens of billion, so we could divide them by one hundred billion, so the Volume value after normalize would be in range of 0 to 1.
 
 And we try these algorithms, **Linear Regression, Logistic Regression, SVM, RVM** and Ensemble Learner combine them together, after adjust and test them, we compare the performance of these algorithms and pick up the best one.
 
